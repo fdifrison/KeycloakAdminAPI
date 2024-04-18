@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: user-roles-resource
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:9090/realms/user-roles-realm
+
+logging:
+  level:
+    web: trace
+    org.springframework:
+      web.client: trace
+      security: trace
+
+server:
+  port: 8080
+
+# --keycloak admin api--
+keycloak-initializer:
+  masterRealm: master
+  applicationRealm: user-roles-realm
+  client-id: admin-cli # default client in each realm
+  client-secret: X5F8PckB63CAgy8DZBxQrbASZIBjQEeW
+#  username: admin
+#  password: password
+  url: http://localhost:9090/
+

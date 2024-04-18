@@ -1,19 +1,79 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:include="layout :: headerFragment">
-    <meta charset="ISO-8859-1">
-    <title>User and Roles Client</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logout-link {
+            color: white;
+            text-decoration: none;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-<div id="container">
-    <h1>
-        Hello, <span th:text="${user}">--name--</span>.
-    </h1>
+<header>
+    <div>Welcome: <span th:text="${name}"></span>!</div>
+    <a href="/logout" class="logout-link"> --> Logout</a>
+</header>
 
-    <div class="p-2 bd-highlight">
-        <img th:src="/images/person.svg" class="img-circle" width="35" height="35" alt="${user}">
-    </div>
-</div>
-<!-- container -->
+<h2>User Roles and Scopes</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Role</th>
+        <th>Scope</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="role : ${roles}">
+        <td th:text="${role.name}"></td>
+        <td th:text="${role.scope}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Realm's Users Information</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Username</th>
+        <th>Client-Roles</th>
+        <th>Realm-Roles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.surname}"></td>
+        <td th:text="${user.username}"></td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

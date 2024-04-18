@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IWebService {
 
-    List<UserDto> getUsers();
+    List<UserDto> getAllUsers();
     List<RoleDto> getRoles();
     void addUser(UserDto user);
     void addRole(RoleDto role);

@@ -1,0 +1,10 @@
+com\simpl\user_role_client\controller\WebController.class
+com\simpl\user_role_client\dto\RoleDto$SCOPE.class
+com\simpl\user_role_client\UserRoleClientApplication.class
+com\simpl\user_role_client\dto\RoleDto.class
+com\simpl\user_role_client\service\WebService$2.class
+com\simpl\user_role_client\dto\UserDto.class
+com\simpl\user_role_client\service\IWebService.class
+com\simpl\user_role_client\config\OAuth2LoginSecurityConfig.class
+com\simpl\user_role_client\service\WebService$1.class
+com\simpl\user_role_client\service\WebService.class

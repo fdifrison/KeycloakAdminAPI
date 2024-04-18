@@ -1,0 +1,11 @@
+org\simpl\user_roles_resource\UserRolesResourceApplication.class
+org\simpl\user_roles_resource\config\keycloak\KeycloakClientConfig.class
+org\simpl\user_roles_resource\config\security\KeycloakRoleConverter.class
+org\simpl\user_roles_resource\service\IKeycloakUserService.class
+org\simpl\user_roles_resource\dto\UserDto.class
+org\simpl\user_roles_resource\config\keycloak\KeycloakProperties.class
+org\simpl\user_roles_resource\dto\RoleDto.class
+org\simpl\user_roles_resource\config\security\OAuth2SecurityConfig.class
+org\simpl\user_roles_resource\controller\KeycloakApiController.class
+org\simpl\user_roles_resource\dto\RoleDto$SCOPE.class
+org\simpl\user_roles_resource\service\KeycloakUserService.class

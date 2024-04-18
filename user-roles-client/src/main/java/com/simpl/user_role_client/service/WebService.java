@@ -31,11 +31,11 @@ public class WebService implements IWebService {
     }
 
     @Override
-    public List<UserDto> getUsers() {
+    public List<UserDto> getAllUsers() {
         String token = getAccessToken();
         return apiClient
                 .get()
-                .uri(API_URL)
+                .uri(API_URL + "/users")
                 .header("Authorization", "bearer " + token)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {

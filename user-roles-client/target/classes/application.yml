@@ -9,7 +9,7 @@ spring:
         provider: keycloak
         client-name: User and Roles
         client-id: user-roles
-        client-secret: KLXWJx6YGlTwpe7xnBfzPmt8SPMXRRQr
+        client-secret: 077US8gFeWfMWiPa2sMM28J5VOl7EQuw
         authorization-grant-type: authorization_code
         scope:
           - openid
@@ -21,7 +21,7 @@ server:
 
 user-roles:
   resource:
-    url: 8090
+    url: http://localhost:8080/kc
 
 
 logging:

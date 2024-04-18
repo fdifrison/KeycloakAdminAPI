@@ -8,6 +8,5 @@ public record UserDto(
         @NotNull String name,
         @NotNull String surname,
         @NotNull String username,
-        @NotNull String password,
         List<RoleDto> roles) {
 }

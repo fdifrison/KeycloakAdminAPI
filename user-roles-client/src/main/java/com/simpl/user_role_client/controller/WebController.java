@@ -1,11 +1,15 @@
 package com.simpl.user_role_client.controller;
 
+import com.simpl.user_role_client.dto.RoleDto;
 import com.simpl.user_role_client.service.IWebService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class WebController {
@@ -42,7 +46,21 @@ public class WebController {
 
         OidcUser principal = (OidcUser) token.getPrincipal();
         ModelAndView model = new ModelAndView();
-        model.addObject("user", principal);
+
+        var name = principal.getUserInfo().getClaim("preferred_username");
+        List<String>  roles = principal.getUserInfo().getClaim("roles");
+        List<String> realm_roles =  principal.getUserInfo().getClaim("realm_roles");
+
+        List<RoleDto> all_roles = new ArrayList<>();
+
+        roles.stream().map(r -> new RoleDto(r, RoleDto.SCOPE.CLIENT)).forEach(all_roles::add);
+        realm_roles.stream().map(r -> new RoleDto(r, RoleDto.SCOPE.REALM)).forEach(all_roles::add);
+
+        model.addObject("name", name);
+        model.addObject("roles", all_roles);
+
+        model.addObject("users", webService.getAllUsers());
+
         return model;
     }
 }

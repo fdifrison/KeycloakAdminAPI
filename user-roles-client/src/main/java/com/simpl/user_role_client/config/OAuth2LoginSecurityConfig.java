@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,8 +38,7 @@ public class OAuth2LoginSecurityConfig {
 
         http.authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers("/user-and-roles/home").hasRole
-                                        ("user-roles.user")
+                                .requestMatchers("/user-and-roles/home").hasRole("user-roles.user")
                                 .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .oauth2Login(
@@ -47,13 +47,6 @@ public class OAuth2LoginSecurityConfig {
                 .logout(logout -> logout.logoutSuccessHandler(oidcLogoutSuccessHandler()));
 
         return http.build();
-    }
-
-    private LogoutSuccessHandler oidcLogoutSuccessHandler() {
-        var logoutHandler = new OidcClientInitiatedLogoutSuccessHandler(this.clientRegistrationRepository);
-        // redirect after logout; has to match what has been set in kc client configuration
-        logoutHandler.setPostLogoutRedirectUri("{baseUrl}/user-and-roles/home");
-        return logoutHandler;
     }
 
     private OAuth2UserService<OidcUserRequest, OidcUser> userService() {
@@ -65,19 +58,25 @@ public class OAuth2LoginSecurityConfig {
             OidcUser oidcUser = delegate.loadUser(userRequest);
 
             List<String> roles = oidcUser.getIdToken().getClaim("roles");
-            if (roles == null) {
-                roles = List.of();
-            }
+            List<String> realm_roles = oidcUser.getIdToken().getClaim("realm_roles");
 
-            List<SimpleGrantedAuthority> listAuthorities
-                    = roles.stream().map(SimpleGrantedAuthority::new).toList();
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            roles.stream().map(SimpleGrantedAuthority::new).forEach(authorities::add);
+            realm_roles.stream().map(SimpleGrantedAuthority::new).forEach(authorities::add);
 
-            Set<GrantedAuthority> mappedAuthorities = new HashSet<>(listAuthorities);
+            Set<GrantedAuthority> mappedAuthorities = new HashSet<>(authorities);
 
             // Create new DefaultOidcUser with authorities
             return new DefaultOidcUser(mappedAuthorities, oidcUser.getIdToken(), oidcUser.getUserInfo());
         };
 
+    }
+
+    private LogoutSuccessHandler oidcLogoutSuccessHandler() {
+        var logoutHandler = new OidcClientInitiatedLogoutSuccessHandler(this.clientRegistrationRepository);
+        // redirect after logout; has to match what has been set in kc client configuration
+        logoutHandler.setPostLogoutRedirectUri("{baseUrl}/user-and-roles/home");
+        return logoutHandler;
     }
 
 }
