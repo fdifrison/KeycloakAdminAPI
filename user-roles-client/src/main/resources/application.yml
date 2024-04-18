@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: user-roles-client
+  security:
+    oauth2.client:
+      provider:
+        keycloak: http://127.0.0.1:9090/realms/user-roles-realm
+        keycloak.user-name-attribute: preferred-username
+      registration.kc-oidc:
+        provider: keycloak
+        client-name: UserAndRoles
+        client-id: user-roles
+        client-secret: xxxx
+        authorization-grant-type: authorization-code
+        scope:
+          - openid
+          - email
+          - profile
+
+
+
+logging:
+  level:
+    web: trace
+    org.springframework.web.client: trace
+

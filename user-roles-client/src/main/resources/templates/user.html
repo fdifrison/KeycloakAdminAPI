@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="layout :: headerFragment">
+    <meta charset="ISO-8859-1">
+    <title>User and Roles Client</title>
+</head>
+<body>
+<div id="container">
+    <h1>
+        Hello, <span th:text="${username}">--name--</span>.
+    </h1>
+
+    <div class="p-2 bd-highlight">
+        <img th:src='/images/person.svg' class="img-circle" width="35" height="35" alt="${username}">
+    </div>
+</div>
+<!-- container -->
+</body>
+</html>
