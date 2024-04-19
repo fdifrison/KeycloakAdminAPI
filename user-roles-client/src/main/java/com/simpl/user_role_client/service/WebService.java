@@ -1,7 +1,6 @@
 package com.simpl.user_role_client.service;
 
 import com.simpl.user_role_client.dto.KcRoleDto;
-import com.simpl.user_role_client.dto.RoleDto;
 import com.simpl.user_role_client.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,7 +52,7 @@ public class WebService implements IWebService {
         String token = getAccessToken();
         apiClient
                 .post()
-                .uri(API_URL+ "/user")
+                .uri(API_URL + "/user")
                 .header("Authorization", "bearer " + token)
                 .retrieve();
 
@@ -64,7 +63,7 @@ public class WebService implements IWebService {
         String token = getAccessToken();
         return apiClient
                 .get()
-                .uri(API_URL + "/client/roles")
+                .uri(API_URL + "/roles/client")
                 .header("Authorization", "bearer " + token)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
@@ -76,7 +75,7 @@ public class WebService implements IWebService {
         String token = getAccessToken();
         apiClient
                 .post()
-                .uri(API_URL+ "/client/roles")
+                .uri(API_URL + "/roles/client")
                 .header("Authorization", "bearer " + token)
                 .retrieve();
     }
@@ -86,7 +85,7 @@ public class WebService implements IWebService {
         String token = getAccessToken();
         return apiClient
                 .get()
-                .uri(API_URL + "/realm/roles")
+                .uri(API_URL + "/roles/realm")
                 .header("Authorization", "bearer " + token)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
@@ -98,7 +97,7 @@ public class WebService implements IWebService {
         String token = getAccessToken();
         apiClient
                 .post()
-                .uri(API_URL+ "/realm/roles")
+                .uri(API_URL + "/roles/realm")
                 .header("Authorization", "bearer " + token)
                 .retrieve();
     }

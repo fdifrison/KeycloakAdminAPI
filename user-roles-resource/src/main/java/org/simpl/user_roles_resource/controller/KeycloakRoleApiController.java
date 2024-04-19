@@ -1,9 +1,7 @@
 package org.simpl.user_roles_resource.controller;
 
 import org.simpl.user_roles_resource.dto.RoleDto;
-import org.simpl.user_roles_resource.dto.UserDto;
 import org.simpl.user_roles_resource.service.IKeycloakRoleService;
-import org.simpl.user_roles_resource.service.IKeycloakUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -15,49 +13,37 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("kc")
+@RequestMapping("kc/roles")
 @EnableMethodSecurity
-public class KeycloakApiController {
+public class KeycloakRoleApiController {
 
-    private final IKeycloakUserService userService;
+
     private final IKeycloakRoleService roleService;
 
-    public KeycloakApiController(IKeycloakUserService userService, IKeycloakRoleService roleService) {
-        this.userService = userService;
+    public KeycloakRoleApiController(IKeycloakRoleService roleService) {
         this.roleService = roleService;
     }
 
-    @GetMapping("user")
-    @PreAuthorize("hasRole('user-roles.user')")
-    public ResponseEntity<List<UserDto>> getAllUsers() {
-        return userService.getAllUsers();
-    }
 
-    @PostMapping("user")
-    @PreAuthorize("hasRole('realm-roles.admin')")
-    public ResponseEntity<UserDto> createRandomUser() {
-        return userService.createRandomUser();
-    }
-
-    @GetMapping("client/roles")
+    @GetMapping("client")
     @PreAuthorize("hasRole('user-roles.user')")
     public ResponseEntity<List<RoleDto>> getAllClientRoles() {
         return roleService.getClientRoles();
     }
 
-    @PostMapping("client/roles")
+    @PostMapping("client")
     @PreAuthorize("hasRole('realm-roles.admin')")
     public ResponseEntity<RoleDto> createRandomClientRole() {
         return roleService.createRandomClientRole();
     }
 
-    @GetMapping("realm/roles")
+    @GetMapping("realm")
     @PreAuthorize("hasRole('user-roles.user')")
     public ResponseEntity<List<RoleDto>> getAllRealmRoles() {
         return roleService.getRealmRoles();
     }
 
-    @PostMapping("realm/roles")
+    @PostMapping("realm")
     @PreAuthorize("hasRole('realm-roles.admin')")
     public ResponseEntity<RoleDto> createRandomRealmRole() {
         return roleService.createRandomRealmRole();

@@ -18,13 +18,19 @@ logging:
 server:
   port: 8080
 
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /openapi
+    operations-sorter: method
+
+
 # --keycloak admin api--
 keycloak-initializer:
   masterRealm: master
   applicationRealm: user-roles-realm
   client-id: admin-cli # default client in each realm
   client-secret: iGHoKpJ9URv6EtJGXlbaAaHMfWyVKv9y
-#  username: admin
-#  password: password
   url: http://localhost:9090/
 
