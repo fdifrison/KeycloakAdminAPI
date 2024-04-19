@@ -17,12 +17,11 @@ public class OAuth2SecurityConfig {
         http
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authz -> authz
-                                .anyRequest().permitAll()
-//                        .requestMatchers("/swagger-ui/index.html").permitAll()
-//                        .requestMatchers("/api-docs").permitAll()
-//                        .requestMatchers("/user-and-roles/home").hasRole("user-roles.user")
-//                        .requestMatchers("/user-and-roles/home/**").hasRole("realm-roles.admin")
-//                        .anyRequest().authenticated()
+                        .requestMatchers("/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/user-and-roles/home").hasRole("user-roles.user")
+                        .requestMatchers("/user-and-roles/home/**").hasRole("realm-roles.admin")
+                        .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

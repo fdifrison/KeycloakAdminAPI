@@ -24,7 +24,7 @@ user-roles:
     url: http://localhost:8080/kc
 
 
-logging:
-  level:
-    web: trace
-    org.springframework.web.client: trace
+#logging:
+#  level:
+#    web: trace
+#    org.springframework.web.client: trace
