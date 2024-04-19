@@ -33,6 +33,7 @@ public class WebService implements IWebService {
     @Override
     public List<UserDto> getAllUsers() {
         String token = getAccessToken();
+        //TODO handle potential 403 from resource server
         return apiClient
                 .get()
                 .uri(API_URL + "/users")
