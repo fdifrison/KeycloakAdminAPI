@@ -56,17 +56,9 @@
         "attributes": {}
       },
       {
-        "id": "6a082a3f-3a44-453e-964d-679a3984b1c6",
-        "name": "user-roles-realm.admin",
-        "description": "Administrator of the User and Roles realm",
-        "composite": true,
-        "composites": {
-          "client": {
-            "realm-management": [
-              "realm-admin"
-            ]
-          }
-        },
+        "id": "67a2899b-86e3-462b-b7aa-ce3ad55ea3d5",
+        "name": "Random Realm Role 708450",
+        "composite": false,
         "clientRole": false,
         "containerId": "41ab669f-db8b-4ca9-9305-9b55c09f1665",
         "attributes": {}
@@ -93,9 +85,41 @@
         "attributes": {}
       },
       {
+        "id": "340b4f6c-fad3-41cb-9fb8-d709798192c3",
+        "name": "realm-roles.admin",
+        "description": "Realm Administrator",
+        "composite": true,
+        "composites": {
+          "client": {
+            "realm-management": [
+              "realm-admin"
+            ]
+          }
+        },
+        "clientRole": false,
+        "containerId": "41ab669f-db8b-4ca9-9305-9b55c09f1665",
+        "attributes": {}
+      },
+      {
+        "id": "c82ae0b3-9703-486f-a0d8-4b5841e3495c",
+        "name": "Random Realm Role 863930",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "41ab669f-db8b-4ca9-9305-9b55c09f1665",
+        "attributes": {}
+      },
+      {
         "id": "c40bd006-2a44-4538-ae76-50edb22e9d75",
         "name": "offline_access",
         "description": "${role_offline-access}",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "41ab669f-db8b-4ca9-9305-9b55c09f1665",
+        "attributes": {}
+      },
+      {
+        "id": "5ed0098f-554d-4add-93ac-585b76d5a21b",
+        "name": "Random Realm Role 532804",
         "composite": false,
         "clientRole": false,
         "containerId": "41ab669f-db8b-4ca9-9305-9b55c09f1665",
@@ -327,6 +351,30 @@
           "clientRole": true,
           "containerId": "9942cffa-c0b4-4bc9-a73b-43bb63274006",
           "attributes": {}
+        },
+        {
+          "id": "4cd7d5c9-48eb-410c-a867-37ea4f94a762",
+          "name": "Random Client Role 136933",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "9942cffa-c0b4-4bc9-a73b-43bb63274006",
+          "attributes": {}
+        },
+        {
+          "id": "b7b1d883-366d-4296-a46a-0f8717a2dd0c",
+          "name": "Random Client Role 687229",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "9942cffa-c0b4-4bc9-a73b-43bb63274006",
+          "attributes": {}
+        },
+        {
+          "id": "8c63f0f0-12bf-4a54-9d4b-a7310887a08e",
+          "name": "Random Client Role 320764",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "9942cffa-c0b4-4bc9-a73b-43bb63274006",
+          "attributes": {}
         }
       ],
       "broker": [
@@ -481,6 +529,55 @@
   "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister": false,
   "webAuthnPolicyPasswordlessAcceptableAaguids": [],
   "webAuthnPolicyPasswordlessExtraOrigins": [],
+  "users": [
+    {
+      "id": "d2a6235d-5cc4-4ab1-b0a4-570c4073e56c",
+      "username": "service-account-admin-cli",
+      "emailVerified": false,
+      "createdTimestamp": 1713509198197,
+      "enabled": true,
+      "totp": false,
+      "serviceAccountClientId": "admin-cli",
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "uma_authorization",
+        "default-roles-user-roles-realm",
+        "offline_access"
+      ],
+      "clientRoles": {
+        "realm-management": [
+          "query-realms",
+          "manage-clients",
+          "manage-identity-providers",
+          "manage-realm",
+          "impersonation",
+          "query-groups",
+          "query-clients",
+          "query-users",
+          "create-client",
+          "manage-authorization",
+          "manage-events",
+          "manage-users"
+        ],
+        "broker": [
+          "read-token"
+        ],
+        "account": [
+          "view-applications",
+          "manage-account-links",
+          "view-profile",
+          "view-groups",
+          "manage-account",
+          "delete-account",
+          "view-consent",
+          "manage-consent"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    }
+  ],
   "scopeMappings": [
     {
       "clientScope": "offline_access",
@@ -604,10 +701,15 @@
       "id": "52154db8-c7bd-4d21-8d04-62244d9c234b",
       "clientId": "admin-cli",
       "name": "${client_admin-cli}",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
+      "secret": "**********",
       "redirectUris": [],
       "webOrigins": [],
       "notBefore": 0,
@@ -615,15 +717,69 @@
       "consentRequired": false,
       "standardFlowEnabled": false,
       "implicitFlowEnabled": false,
-      "directAccessGrantsEnabled": true,
-      "serviceAccountsEnabled": false,
-      "publicClient": true,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
       "frontchannelLogout": false,
       "protocol": "openid-connect",
-      "attributes": {},
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "client.secret.creation.time": "1713509198",
+        "backchannel.logout.session.required": "true",
+        "display.on.consent.screen": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
       "nodeReRegistrationTimeout": 0,
+      "protocolMappers": [
+        {
+          "id": "cc06871d-6e1e-45d2-9ca3-5a927f114a80",
+          "name": "Client Host",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usersessionmodel-note-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.session.note": "clientHost",
+            "introspection.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "clientHost",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "98e8e832-a065-4312-854d-914129c39aeb",
+          "name": "Client IP Address",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usersessionmodel-note-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.session.note": "clientAddress",
+            "introspection.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "clientAddress",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "34abf182-ad80-4c93-9900-b0ed6c43a4d8",
+          "name": "Client ID",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usersessionmodel-note-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.session.note": "client_id",
+            "introspection.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "client_id",
+            "jsonType.label": "String"
+          }
+        }
+      ],
       "defaultClientScopes": [
         "web-origins",
         "acr",
@@ -793,7 +949,7 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        "http://localhost:4200/login/oauth2/code/kc-oicd"
+        "http://localhost:4200/login/oauth2/code/kc-oidc"
       ],
       "webOrigins": [
         "http://localhost:4200"
@@ -812,15 +968,34 @@
         "oidc.ciba.grant.enabled": "false",
         "client.secret.creation.time": "1713448689",
         "backchannel.logout.session.required": "true",
+        "login_theme": "keycloak",
         "post.logout.redirect.uris": "http://localhost:4200/user-and-roles/home",
         "display.on.consent.screen": "false",
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false"
       },
       "authenticationFlowBindingOverrides": {},
-      "fullScopeAllowed": false,
+      "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
       "protocolMappers": [
+        {
+          "id": "af4bda30-fdfd-4eea-bcb9-ebc426e3484f",
+          "name": "realm-roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "usermodel.realmRoleMapping.rolePrefix": "ROLE_",
+            "introspection.token.claim": "true",
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "false",
+            "access.token.claim": "true",
+            "claim.name": "realm_roles",
+            "jsonType.label": "String"
+          }
+        },
         {
           "id": "37e4a9a7-9c4a-4f4c-8445-4b890b438380",
           "name": "roles",
