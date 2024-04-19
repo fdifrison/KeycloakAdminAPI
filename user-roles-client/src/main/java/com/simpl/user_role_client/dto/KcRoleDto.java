@@ -2,7 +2,8 @@ package com.simpl.user_role_client.dto;
 
 import jakarta.validation.constraints.NotNull;
 
-public record RoleDto(
+public record KcRoleDto(
+        @NotNull String id,
         @NotNull String name,
         @NotNull SCOPE scope) {
 

@@ -9,7 +9,7 @@ spring:
         provider: keycloak
         client-name: User and Roles
         client-id: user-roles
-        client-secret: 077US8gFeWfMWiPa2sMM28J5VOl7EQuw
+        client-secret: KLXWJx6YGlTwpe7xnBfzPmt8SPMXRRQr
         authorization-grant-type: authorization_code
         scope:
           - openid

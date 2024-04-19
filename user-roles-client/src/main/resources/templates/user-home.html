@@ -8,6 +8,7 @@
         body {
             font-family: Arial, sans-serif;
         }
+
         header {
             background-color: #333;
             color: white;
@@ -16,18 +17,22 @@
             justify-content: space-between;
             align-items: center;
         }
+
         .logout-link {
             color: white;
             text-decoration: none;
         }
+
         table {
             border-collapse: collapse;
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
@@ -56,24 +61,137 @@
 </table>
 
 <h2>Realm's Users Information</h2>
+<div>
+    <button id="createRandomUserBtn">Create Random User</button>
+</div>
+<br>
 <table>
     <thead>
     <tr>
+        <th>Id</th>
         <th>Name</th>
         <th>Surname</th>
         <th>Username</th>
-        <th>Client-Roles</th>
-        <th>Realm-Roles</th>
+        <th>Email</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
         <td th:text="${user.name}"></td>
         <td th:text="${user.surname}"></td>
         <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
     </tr>
     </tbody>
 </table>
+
+<script type="text/javascript">
+    document.getElementById("createRandomUserBtn").addEventListener("click", function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/user-and-roles/home/createRandomUser", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log("Random user created successfully.");
+                    location.reload();
+                    // Handle success response if needed
+                } else  {
+                    console.error("Failed to create random user.");
+                    // Handle error response if needed
+                }
+            }
+        };
+        xhr.send();
+    });
+</script>
+
+<h2>Realm Roles</h2>
+<div>
+    <button id="createRandomRealmRoleBtn">Create Random Realm Role</button>
+</div>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Role</th>
+        <th>Scope</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="role : ${realmRoles}">
+        <td th:text="${role.id}"></td>
+        <td th:text="${role.name}"></td>
+        <td th:text="${role.scope}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    document.getElementById("createRandomRealmRoleBtn").addEventListener("click", function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/user-and-roles/home/createRandomRealmRole", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log("Random realm role created successfully.");
+                    location.reload();
+                    // Handle success response if needed
+                } else  {
+                    console.error("Failed to create random realm role.");
+                    // Handle error response if needed
+                }
+            }
+        };
+        xhr.send();
+    });
+</script>
+
+<h2>Client Roles</h2>
+<div>
+    <button id="createRandomClientRoleBtn">Create Random Client Role</button>
+</div>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Role</th>
+        <th>Scope</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="role : ${clientRoles}">
+        <td th:text="${role.id}"></td>
+        <td th:text="${role.name}"></td>
+        <td th:text="${role.scope}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    document.getElementById("createRandomClientRoleBtn").addEventListener("click", function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/user-and-roles/home/createRandomClientRole", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log("Random realclientm role created successfully.");
+                    location.reload();
+                    // Handle success response if needed
+                } else  {
+                    console.error("Failed to create random client role.");
+                    // Handle error response if needed
+                }
+            }
+        };
+        xhr.send();
+    });
+</script>
 
 </body>
 </html>

@@ -23,7 +23,7 @@ keycloak-initializer:
   masterRealm: master
   applicationRealm: user-roles-realm
   client-id: admin-cli # default client in each realm
-  client-secret: X5F8PckB63CAgy8DZBxQrbASZIBjQEeW
+  client-secret: iGHoKpJ9URv6EtJGXlbaAaHMfWyVKv9y
 #  username: admin
 #  password: password
   url: http://localhost:9090/

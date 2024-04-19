@@ -1,5 +1,6 @@
 package com.simpl.user_role_client.service;
 
+import com.simpl.user_role_client.dto.KcRoleDto;
 import com.simpl.user_role_client.dto.RoleDto;
 import com.simpl.user_role_client.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -22,21 +24,47 @@ public class WebService implements IWebService {
     @Value("${user-roles.resource.url}")
     private String API_URL;
 
-    private final OAuth2AuthorizedClientService azdCliService;
+    private final OAuth2AuthorizedClientService authCliService;
 
     private final RestClient apiClient = RestClient.create();
 
-    public WebService(OAuth2AuthorizedClientService azdCliService) {
-        this.azdCliService = azdCliService;
+    public WebService(OAuth2AuthorizedClientService authCliService) {
+        this.authCliService = authCliService;
     }
 
     @Override
     public List<UserDto> getAllUsers() {
         String token = getAccessToken();
-        //TODO handle potential 403 from resource server
         return apiClient
                 .get()
-                .uri(API_URL + "/users")
+                .uri(API_URL + "/user")
+                .header("Authorization", "bearer " + token)
+                .exchange((req, res) -> {
+                    if (res.getStatusCode().is2xxSuccessful()) {
+                        return Objects.requireNonNull(res.bodyTo(new ParameterizedTypeReference<>() {
+                        }));
+                    }
+                    return List.of();
+                });
+    }
+
+    @Override
+    public void addRandomUser() {
+        String token = getAccessToken();
+        apiClient
+                .post()
+                .uri(API_URL+ "/user")
+                .header("Authorization", "bearer " + token)
+                .retrieve();
+
+    }
+
+    @Override
+    public List<KcRoleDto> getClientRoles() {
+        String token = getAccessToken();
+        return apiClient
+                .get()
+                .uri(API_URL + "/client/roles")
                 .header("Authorization", "bearer " + token)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
@@ -44,11 +72,21 @@ public class WebService implements IWebService {
     }
 
     @Override
-    public List<RoleDto> getRoles() {
+    public void addRandomClientRole() {
+        String token = getAccessToken();
+        apiClient
+                .post()
+                .uri(API_URL+ "/client/roles")
+                .header("Authorization", "bearer " + token)
+                .retrieve();
+    }
+
+    @Override
+    public List<KcRoleDto> getRealmRoles() {
         String token = getAccessToken();
         return apiClient
                 .get()
-                .uri(API_URL)
+                .uri(API_URL + "/realm/roles")
                 .header("Authorization", "bearer " + token)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
@@ -56,25 +94,15 @@ public class WebService implements IWebService {
     }
 
     @Override
-    public void addUser(UserDto user) {
+    public void addRandomRealmRole() {
         String token = getAccessToken();
         apiClient
                 .post()
-                .uri(API_URL)
+                .uri(API_URL+ "/realm/roles")
                 .header("Authorization", "bearer " + token)
-                .body(user);
-
+                .retrieve();
     }
 
-    @Override
-    public void addRole(RoleDto role) {
-        String token = getAccessToken();
-        apiClient
-                .post()
-                .uri(API_URL)
-                .header("Authorization", "bearer " + token)
-                .body(role);
-    }
 
     private String getAccessToken() {
         var auth = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
@@ -83,7 +111,7 @@ public class WebService implements IWebService {
 
         log.info("Requesting access token for user [{}] with id [{}] ", name, authId);
 
-        OAuth2AuthorizedClient authCli = azdCliService.loadAuthorizedClient(authId, name);
+        OAuth2AuthorizedClient authCli = authCliService.loadAuthorizedClient(authId, name);
         OAuth2AccessToken token = authCli.getAccessToken();
 
         String tokenValue = token.getTokenValue();

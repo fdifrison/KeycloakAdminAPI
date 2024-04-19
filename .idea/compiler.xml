@@ -8,11 +8,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="user-roles-client" />
+        <module name="user-roles-resource" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="user-roles-resource" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

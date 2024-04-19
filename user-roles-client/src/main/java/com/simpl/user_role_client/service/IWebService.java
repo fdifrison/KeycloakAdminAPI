@@ -1,6 +1,6 @@
 package com.simpl.user_role_client.service;
 
-import com.simpl.user_role_client.dto.RoleDto;
+import com.simpl.user_role_client.dto.KcRoleDto;
 import com.simpl.user_role_client.dto.UserDto;
 
 import java.util.List;
@@ -8,7 +8,9 @@ import java.util.List;
 public interface IWebService {
 
     List<UserDto> getAllUsers();
-    List<RoleDto> getRoles();
-    void addUser(UserDto user);
-    void addRole(RoleDto role);
+    List<KcRoleDto> getClientRoles();
+    List<KcRoleDto> getRealmRoles();
+    void addRandomUser();
+    void addRandomClientRole();
+    void addRandomRealmRole();
 }

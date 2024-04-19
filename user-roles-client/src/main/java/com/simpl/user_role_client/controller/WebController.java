@@ -6,6 +6,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -28,12 +29,37 @@ public class WebController {
     @GetMapping("/user-and-roles/home")
     public ModelAndView home(OAuth2AuthenticationToken token) {
 
-        OidcUser principal = (OidcUser) token.getPrincipal();
-
         ModelAndView model = generateDefaultModel(token);
 
         model.setViewName("user-home");
 
+        return model;
+    }
+
+    @PostMapping("/user-and-roles/home/createRandomUser")
+    public ModelAndView addRandomUser(OAuth2AuthenticationToken token) {
+        ModelAndView model = generateDefaultModel(token);
+        webService.addRandomUser();
+        model.addObject("users", webService.getAllUsers());
+        model.setViewName("user-home");
+        return model;
+    }
+
+    @PostMapping("/user-and-roles/home/createRandomClientRole")
+    public ModelAndView addRandomClientRole(OAuth2AuthenticationToken token) {
+        ModelAndView model = generateDefaultModel(token);
+        webService.addRandomClientRole();
+        model.addObject("clientRoles", webService.getClientRoles());
+        model.setViewName("user-home");
+        return model;
+    }
+
+    @PostMapping("/user-and-roles/home/createRandomRealmRole")
+    public ModelAndView addRandomRealmRole(OAuth2AuthenticationToken token) {
+        ModelAndView model = generateDefaultModel(token);
+        webService.addRandomRealmRole();
+        model.addObject("clientRoles", webService.getRealmRoles());
+        model.setViewName("user-home");
         return model;
     }
 
@@ -48,8 +74,8 @@ public class WebController {
         ModelAndView model = new ModelAndView();
 
         var name = principal.getUserInfo().getClaim("preferred_username");
-        List<String>  roles = principal.getUserInfo().getClaim("roles");
-        List<String> realm_roles =  principal.getUserInfo().getClaim("realm_roles");
+        List<String> roles = principal.getUserInfo().getClaim("roles");
+        List<String> realm_roles = principal.getUserInfo().getClaim("realm_roles");
 
         List<RoleDto> all_roles = new ArrayList<>();
 
@@ -60,6 +86,8 @@ public class WebController {
         model.addObject("roles", all_roles);
 
         model.addObject("users", webService.getAllUsers());
+        model.addObject("clientRoles", webService.getClientRoles());
+        model.addObject("realmRoles", webService.getRealmRoles());
 
         return model;
     }
