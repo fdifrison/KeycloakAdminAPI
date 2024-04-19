@@ -4,12 +4,8 @@ import jakarta.ws.rs.ClientErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.idm.CredentialRepresentation;
-import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
-import org.simpl.user_roles_resource.dto.RoleDto;
 import org.simpl.user_roles_resource.dto.UserDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -25,7 +20,6 @@ public class KeycloakUserService implements IKeycloakUserService {
 
     @Value("${keycloak-initializer.applicationRealm}")
     private String realm;
-    private final String clientId = "user-roles";
     private final Keycloak keycloak;
 
     public KeycloakUserService(Keycloak keycloak) {
@@ -64,7 +58,6 @@ public class KeycloakUserService implements IKeycloakUserService {
         log.error("Failed to create random user");
         return ResponseEntity.badRequest().build();
     }
-
 
 
     private static UserRepresentation createRandomUserRepresentation() {

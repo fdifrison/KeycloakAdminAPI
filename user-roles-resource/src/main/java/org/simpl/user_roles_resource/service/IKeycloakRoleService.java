@@ -11,9 +11,6 @@ public interface IKeycloakRoleService {
     ResponseEntity<RoleDto> createRandomClientRole();
     ResponseEntity<List<RoleDto>> getRealmRoles();
     ResponseEntity<List<RoleDto>> getClientRoles();
-    ResponseEntity<Void> deleteRealmRoleFromUser(String userName, String roleName);
-    ResponseEntity<Void> deleteClientRoleFromUser(String userName, String roleName);
-    ResponseEntity<Void> assignClientRoleToUser(String userName, String roleName);
     ResponseEntity<Void> addRealmRoleToUser(String userName, String roleName);
 
 }

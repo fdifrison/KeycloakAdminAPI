@@ -1,6 +1,5 @@
 package org.simpl.user_roles_resource.service;
 
-import org.simpl.user_roles_resource.dto.RoleDto;
 import org.simpl.user_roles_resource.dto.UserDto;
 import org.springframework.http.ResponseEntity;
 

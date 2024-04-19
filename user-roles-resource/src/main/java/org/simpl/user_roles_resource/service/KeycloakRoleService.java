@@ -123,20 +123,6 @@ public class KeycloakRoleService implements IKeycloakRoleService {
         return ResponseEntity.ok(roles);
     }
 
-    @Override
-    public ResponseEntity<Void> deleteRealmRoleFromUser(String roleId, String userId) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Void> deleteClientRoleFromUser(String roleId, String userId) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Void> assignClientRoleToUser(String roleId, String userId) {
-        return null;
-    }
 
     @Override
     public ResponseEntity<Void> addRealmRoleToUser(String userName, String roleName) {
